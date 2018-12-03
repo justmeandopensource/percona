@@ -25,7 +25,7 @@ cat >>/etc/mysql/my.cnf<<EOF
 [mysqld]
 wsrep_provider=/usr/lib/libgalera_smm.so
 wsrep_cluster_name=democluster
-wsrep_cluster_address=gcomm://172.42.42.101,172.42.42.102
+wsrep_cluster_address=gcomm://
 wsrep_node_name=centosvm01
 wsrep_node_address=172.42.42.101
 wsrep_sst_method=xtrabackup-v2
@@ -45,6 +45,10 @@ systemctl start mysql@bootstrap
 mysql -uroot -p -e "create user repuser@localhost identified by 'reppassword'"
 mysql -uroot -p -e "grant reload, replication client, process, lock tables on *.* to repuser@localhost"
 mysql -uroot -p -e "flush privileges"
+```
+##### Update Replication configuration
+```
+sed -i 's/^wsrep_cluster_address=.*/wsrep_cluster_address=gcomm:\/\/172.42.42.101,172.42.42.102/' /etc/mysql/my.cnf
 ```
 
 ### On Second node
