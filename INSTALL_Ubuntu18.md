@@ -38,7 +38,7 @@ EOF
 ```
 ##### Bootstrap/Initialize the Cluster
 ```
-systemctl start mysql@bootstrap
+systemctl start mysql
 ```
 ##### Create Replication User
 ```
